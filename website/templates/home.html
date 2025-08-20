@@ -1,0 +1,191 @@
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShopEase - Home</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Arial, sans-serif; background: #f5f6fa; color: #333; }
+
+        header {
+            background: white;
+            padding: 15px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+        .logo { font-size: 1.8rem; font-weight: bold; color: #2d3436; }
+        nav { display: flex; align-items: center; }
+        nav a {
+            color: #2d3436;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        nav a:hover { color: #0984e3; }
+
+        .auth-buttons { display: flex; gap: 10px; }
+        .btn {
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: bold;
+            text-decoration: none;
+            transition: 0.3s ease;
+        }
+        .btn-login {
+            background: transparent;
+            border: 2px solid #0984e3;
+            color: #0984e3;
+        }
+        .btn-login:hover { background: #0984e3; color: white; }
+        .btn-signup {
+            background: #0984e3;
+            color: white;
+            border: 2px solid #0984e3;
+        }
+        .btn-signup:hover { background: #74b9ff; border-color: #74b9ff; }
+
+        .hero {
+            background: linear-gradient(to right, rgba(0,0,0,0.5), rgba(0,0,0,0.4)),
+                        url("{% static 'images/banner.jpg' %}") center/cover no-repeat;
+            height: 65vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-align: center;
+            padding: 0 20px;
+        }
+        .hero h2 { font-size: 2.8rem; margin-bottom: 10px; }
+        .hero p { font-size: 1.2rem; margin-bottom: 20px; }
+        .hero a {
+            background: #0984e3;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+        .hero a:hover { background: #74b9ff; }
+
+        .products {
+            padding: 50px 5%;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+        }
+        .product-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease;
+            text-align: center;
+        }
+        .product-card:hover { transform: translateY(-5px); }
+        .product-card img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+        }
+        .product-card img:hover{
+            cursor: pointer;
+        }
+        .product-card h3 {
+            font-size: 1.2rem;
+            margin: 15px 0 5px;
+            color: #2d3436;
+        }
+        .product-card p {
+            font-size: 0.95rem;
+            color: #636e72;
+            padding: 0 10px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: #2d3436;
+            color: white;
+            margin-top: 40px;
+        }
+
+        @media (max-width: 768px) {
+            header { flex-direction: column; gap: 10px; }
+            nav { flex-wrap: wrap; justify-content: center; }
+            .auth-buttons { margin-top: 10px; }
+            .hero h2 { font-size: 2rem; }
+            .hero p { font-size: 1rem; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">ShopEase</div>
+        <nav>
+            <a href="{% url 'home' %}">Home</a>
+            <a href="{% url 'cart' %}">Cart</a>
+            <a href="#">Contact</a>
+            {% if user.is_authenticated %}
+                <a href="{% url 'logout_view' %}">Logout</a>
+            {% else %}
+                <div class="auth-buttons">
+                    <a href="{% url 'login' %}" class="btn btn-login">Login</a>
+                    <a href="{% url 'signup' %}" class="btn btn-signup">Sign Up</a>
+                </div>
+            {% endif %}
+        </nav>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div>
+            <h2>Discover Your Next Favorite Item</h2>
+            <p>Trendy products at unbeatable prices</p>
+            <a href="#">Shop Now</a>
+        </div>
+    </section>
+
+    <!-- Products -->
+    <section class="products">
+        <div class="product-card">
+            <a href="{% url 'headphones' %}">
+                <img src="{% static 'img.png' %}" alt="Product 1" style="width:150px">
+            </a>
+            <h3>Wireless Headphones</h3>
+            <p>Experience high-quality sound without the wires.</p>
+            <div class="price">$49.99</div>
+        </div>
+        <div class="product-card">
+            <a href="{% url 'watch' %}">
+                <img src="{% static 'img_1.png' %}" alt="Product 2" style="width:180px">
+            </a>
+            <h3>Smart Watch</h3>
+            <p>Stay connected and track your fitness goals.</p>
+            <div class="price">$89.99</div>
+        </div>
+        <div class="product-card">
+            <a href="{% url 'backpack' %}">
+                <img src="{% static 'img_2.png' %}" alt="Product 3" style="width:200px" height="100px">
+            </a>
+            <h3>Stylish Backpack</h3>
+            <p>Perfect for work, travel, and daily use.</p>
+            <div class="price">$39.99</div>
+        </div>
+    </section>
+
+    <footer>
+        &copy; {{ year|default:"2025" }} ShopEase. All rights reserved.
+    </footer>
+</body>
+</html>

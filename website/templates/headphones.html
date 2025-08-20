@@ -1,0 +1,144 @@
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Headphones Collection</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+    <style>
+        :root {
+            --primary-color: #3b82f6;
+            --primary-dark: #2563eb;
+            --bg-color: #f4f6fb;
+            --card-radius: 16px;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background: linear-gradient(90deg, #111827, #1f2937);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+            font-size: 2.2rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 50px;
+            padding: 3rem 2rem;
+            max-width: 1000px;
+
+            margin: auto;
+        }
+
+        .card {
+            background: white;
+            border-radius: var(--card-radius);
+            overflow: hidden;
+            transition: all 0.35s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 1.5rem 1rem;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 12px 25px rgba(0,0,0,0.15);
+        }
+
+        .card img {
+            width: 150px;
+            height: auto;
+            object-fit: contain;
+            margin-bottom: 1rem;
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover img {
+            transform: scale(1.08);
+        }
+
+        .card-title {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #111827;
+        }
+
+        .card-price {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: #10b981;
+            margin-bottom: 1rem;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 12px;
+            margin-top: auto;
+        }
+
+        .btn {
+            flex: 1;
+            text-align: center;
+            padding: 0.7rem 1rem;
+            background: var(--primary-color);
+            color: white;
+            font-weight: 600;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: background 0.3s ease, transform 0.2s;
+        }
+
+        .btn:hover {
+            background: var(--primary-dark);
+            transform: scale(1.07);
+        }
+
+        @media (max-width: 600px) {
+            header {
+                font-size: 1.7rem;
+                padding: 1.5rem;
+            }
+            .card img {
+                width: 150px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>🎧 Our Headphones Collection</header>
+
+<div class="container">
+    {% for product in products %}
+        <div class="card">
+            <img src="{{ product.product_image.url }}" alt="{{ product.product_name }}">
+            <div class="card-title">{{ product.product_name }}</div>
+            <div class="card-price">${{ product.product_price }}</div>
+            <div class="btn-group">
+<a href="{% url 'product_detail' product.pk %}" class="btn">View</a>
+                <a href="#" class="btn">Buy Now</a>
+            </div>
+        </div>
+    {% empty %}
+        <p>No headphones available right now.</p>
+    {% endfor %}
+</div>
+
+</body>
+</html>
