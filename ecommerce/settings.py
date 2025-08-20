@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-kgi^b$eja6*b!6$44qtimqh@$w4i9#o2xl*4ayyip0pgypo$mr
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = ['localhost', "*"]
 
 
 # Application definition
@@ -118,21 +118,15 @@ import os
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'ecommerce', 'static'),
+    os.path.join(BASE_DIR, 'static'),
 ]
 
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
-import os
-
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
